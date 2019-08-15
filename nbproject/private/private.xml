@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/wamp64/www/solid/src/Core/Util/File/Classes/File.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Database/Abstracts/PdoAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Router/Classes/Router.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Mvc/View/Classes/View.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Util/File/Classes/SubClasses/FileJson.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Router/Abstracts/RouterAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/src/App/ApiRest/CuentaApiRest.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Mvc/Model/Classes/Model.php</file>
+            <file>file:/C:/wamp64/www/solid/views/modules/home/index.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Mvc/Controller/Classes/Controller.php</file>
+            <file>file:/C:/wamp64/www/solid/src/App/Config/ConfigApp.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Util/Request/Abstracts/RequestAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/src/App/ApiRest/UserApiRest.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Router/Classes/RouteApiRest.php</file>
+            <file>file:/C:/wamp64/www/solid/src/App/Controllers/HomeController.php</file>
+            <file>file:/C:/wamp64/www/solid/config/routes.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Mvc/Model/Abstracts/ModelAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Database/Abstracts/ConfigDatabaseFileAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Database/Classes/Dao.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Database/Classes/Pdo.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Util/Response/Abstracts/ResponseAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/src/App/Models/UserModel.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Mvc/Controller/Abstracts/ControllerAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Util/Response/Classes/Response.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Mvc/Controller/Interfaces/ApiRestControllerInterface.php</file>
+            <file>file:/C:/wamp64/www/solid/config/config.php</file>
+            <file>file:/C:/wamp64/www/solid/views/template/index.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Router/Classes/RouteController.php</file>
+            <file>file:/C:/wamp64/www/solid/public/index.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Mvc/Controller/Classes/ApiRestController.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Database/Abstracts/DaoAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/src/Core/Mvc/View/Abstracts/ViewAbstract.php</file>
+            <file>file:/C:/wamp64/www/solid/public/.htaccess</file>
+        </group>
+    </open-files>
+</project-private>

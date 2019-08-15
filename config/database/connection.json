@@ -1,0 +1,10 @@
+{
+    "production":{
+        "sgbd": "mysql",
+        "dbname":"examen",
+        "user": "root",
+        "password": "",
+        "port":"3307",
+        "host":"localhost"
+    }
+}
