@@ -35,13 +35,41 @@ class CuentaApiRest extends ApiRestController{
         return $this->getResponse()->responseJson();
     }
 
-    public function retiro(){
+    public function retiroDebito(){
         $iduser = $this->param('iduser');
         $idaccount = $this->param('idaccount');
         $movemet = $this->param('movement');
         $modelMovement = new MovementModel($this->getConfigApp());
-        return $modelMovement->retiro($idaccount,$iduser,$movemet);
-
+        $success =  $modelMovement->retiro($idaccount,$iduser,$movemet);
+        if($success){
+            $account = $this->getModel()->getAcountByIdAccountAndIdUser($idaccount,$iduser);
+            $this->getResponse()->setData('account',$account);
+        }
+        return $this->getResponse()->responseJson();
+    }
+    public function retiroCredito(){
+        $iduser = $this->param('iduser');
+        $idaccount = $this->param('idaccount');
+        $movemet = $this->param('movement');
+        $modelMovement = new MovementModel($this->getConfigApp());
+        $success =  $modelMovement->retiroCredito($idaccount,$iduser,$movemet);
+        if($success){
+            $account = $this->getModel()->getAcountByIdAccountAndIdUser($idaccount,$iduser);
+            $this->getResponse()->setData('account',$account);
+        }
+        return $this->getResponse()->responseJson();
+    }
+    public function deposito(){
+        $iduser = $this->param('iduser');
+        $idaccount = $this->param('idaccount');
+        $movemet = $this->param('movement');
+        $modelMovement = new MovementModel($this->getConfigApp());
+        $success =  $modelMovement->deposito($idaccount,$iduser,$movemet);
+        if($success){
+            $account = $this->getModel()->getAcountByIdAccountAndIdUser($idaccount,$iduser);
+            $this->getResponse()->setData('account',$account);
+        }
+        return $this->getResponse()->responseJson();
     }
     
 }

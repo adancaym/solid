@@ -24,3 +24,6 @@ $router->getApiRESTByName('user')->appendVerbMethod('GET', 'vars');
 
 $router->addRouteApiRest('account', 'CuentaApiRest');
 $router->getApiRESTByName('account')->appendVerbMethod('POST', 'getAcountByAccountAndIdUser');
+$router->getApiRESTByName('account')->appendVerbMethod('POST', 'retiroDebito');
+$router->getApiRESTByName('account')->appendVerbMethod('POST', 'retiroCredito');
+$router->getApiRESTByName('account')->appendVerbMethod('POST', 'deposito');
