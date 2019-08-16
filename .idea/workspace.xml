@@ -248,12 +248,12 @@
       <option name="presentableId" value="Default" />
       <updated>1565721860462</updated>
       <workItem from="1565721861578" duration="21655000" />
-      <workItem from="1565811172716" duration="23040000" />
+      <workItem from="1565811172716" duration="24030000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44695000" />
+    <option name="totallyTimeSpent" value="45685000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -266,13 +266,12 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.25266525" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25266525" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="TypeScript" order="0" />
-      <window_info anchor="bottom" id="Terminal" order="1" visible="true" weight="0.3290461" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="1" visible="true" weight="0.3290461" />
       <window_info anchor="bottom" id="Database Changes" order="2" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="4" />

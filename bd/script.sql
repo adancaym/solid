@@ -151,6 +151,117 @@ LOCK TABLES `user` WRITE;
 INSERT INTO `user` VALUES (1,'caym','1234',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'examen'
+--
+/*!50003 DROP FUNCTION IF EXISTS `sum_arit_by_idaccount` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `sum_arit_by_idaccount`(par_idaccount int(11)) RETURNS decimal(20,2)
+BEGIN
+ RETURN (
+     select ifnull( sum(movement * concat(operator,1) ) , 0 ) From account 
+		inner join movement on movement.idaccount = account.idaccount
+		inner join movement_type on movement_type.idmovement_type = movement.idmovement_type
+		where account.idaccount = par_idaccount
+ );
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `deposito` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `deposito`(in par_id_account int(11) ,in par_id_user int(11) , in par_movement decimal(10,2),out valid bool)
+BEGIN
+	insert into movement(iduser,idaccount,movement,idmovement_type,motivo) values (par_id_user,par_id_account,par_movement,1,'Deposito cuenta debito');
+    
+    if((select idaccount_type from account where idaccount = par_id_account and iduser = par_id_user) = 1)
+    then
+            update account set limit_money = (select sum_arit_by_idaccount(par_id_account)) where account.idaccount = par_id_account;
+	end if;
+    select true into valid;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `retiro` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `retiro`(in par_id_account int(11) ,in par_id_user int(11) , in par_movement decimal(10,2), out valid bool)
+BEGIN
+	if ( (select limit_money from account where idaccount = par_id_account and iduser = par_id_user) >= par_movement ) THEN
+        insert into movement(iduser,idaccount,movement,idmovement_type,motivo) values (par_id_user,par_id_account,par_movement,2,'Retiro cuenta debito');
+        update account set limit_money = (select sum_arit_by_idaccount(par_id_account)) where account.idaccount = par_id_account;
+        select true into valid;
+	else
+		select false into valid;
+    end if;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `retiro_credito` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `retiro_credito`(in par_id_account int(11) ,in par_id_user int(11) , in par_movement decimal(10,2),out valid bool)
+BEGIN
+		declare limite decimal(10,2) default 0;
+		declare credito_usado decimal(20,2) default 0;
+		declare monto_total_retiro decimal(10,2) default 0;
+        
+        select (limit_money)  into limite from account where account.iduser = par_id_user and account.idaccount = par_id_account;
+        select (sum_arit_by_idaccount(par_id_account)) into credito_usado;
+        select (par_movement + (par_movement*.10)) into monto_total_retiro;
+        
+	if( (monto_total_retiro + abs(credito_usado))  <= limite)	 then
+		insert into movement(iduser,idaccount,movement,idmovement_type,motivo) values (par_id_user,par_id_account,par_movement,2,'Retiro cuenta credito');
+		insert into movement(iduser,idaccount,movement,idmovement_type,motivo) values (par_id_user,par_id_account,(par_movement*.10),2,'Comision retiro cuenta credito'); 
+		select true into valid;
+    else 
+		select false into valid;
+	end if;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -161,4 +272,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-15 22:02:31
+-- Dump completed on 2019-08-15 22:19:56
